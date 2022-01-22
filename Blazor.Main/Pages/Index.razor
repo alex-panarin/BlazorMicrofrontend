@@ -1,0 +1,17 @@
+﻿@page "/"
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello, @context.User?.Identity?.Name !</h1>
+        Welcome to your new app.
+     </Authorized>
+    <NotAuthorized>
+        You're not logged in.
+    </NotAuthorized>
+</AuthorizeView>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    [CascadingParameter] Task<AuthenticationState> authenticationStateTask { get; set; }
+}
