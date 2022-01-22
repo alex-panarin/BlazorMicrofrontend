@@ -1,5 +1,12 @@
-﻿<CascadingAuthenticationState>
-<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+﻿@using Blazor.Loading.Services
+@using Microsoft.Extensions.Logging
+@inject ILogger<App> Logger
+@inject ILoadingService Service
+<CascadingAuthenticationState>
+<Router AppAssembly="@typeof(Program).Assembly" 
+    AdditionalAssemblies="@Service.LoadedAssemblies" 
+    OnNavigateAsync="@OnNavigateAsync"
+    PreferExactMatches="@true">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" >
             <NotAuthorized>
@@ -14,3 +21,17 @@
     </NotFound>
 </Router>
 </CascadingAuthenticationState>
+
+@code{
+    private async Task OnNavigateAsync(NavigationContext context) 
+    {
+        try
+        {
+            await Service.Loading(context.Path, Program.DefaultServiceProvider, Logger);
+        }
+        catch(Exception x)
+        {
+            Logger.LogError(x, "OnNavigateAsync Loading assembly");
+        }
+    }
+}

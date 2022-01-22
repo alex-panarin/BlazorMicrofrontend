@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Auth", "Blazor.Auth\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Main", "Blazor.Main\Blazor.Main.csproj", "{FAB0614C-3B92-4580-985D-33F66BA78731}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Token.Api", "Blazor.Token.Api\Blazor.Token.Api.csproj", "{9059BDD4-6F3D-4757-B101-EF7935211594}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Token.Api", "Blazor.Token.Api\Blazor.Token.Api.csproj", "{9059BDD4-6F3D-4757-B101-EF7935211594}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Loading", "Blazor.Loading\Blazor.Loading.csproj", "{60EB28B0-F90A-4F1D-9047-12E1519C2C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Register", "Blazor.Register\Blazor.Register.csproj", "{7ECA1D2B-D148-491E-B765-7954AF81CA51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{9059BDD4-6F3D-4757-B101-EF7935211594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9059BDD4-6F3D-4757-B101-EF7935211594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9059BDD4-6F3D-4757-B101-EF7935211594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60EB28B0-F90A-4F1D-9047-12E1519C2C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60EB28B0-F90A-4F1D-9047-12E1519C2C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60EB28B0-F90A-4F1D-9047-12E1519C2C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60EB28B0-F90A-4F1D-9047-12E1519C2C76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ECA1D2B-D148-491E-B765-7954AF81CA51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ECA1D2B-D148-491E-B765-7954AF81CA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ECA1D2B-D148-491E-B765-7954AF81CA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ECA1D2B-D148-491E-B765-7954AF81CA51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

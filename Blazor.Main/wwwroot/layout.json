@@ -1,0 +1,12 @@
+{
+  "Layouts":[
+    {
+      "Key": "admin",
+      "Assemblies": []
+    },
+    {
+      "Key": "gest",
+      "Assemblies": []
+    }
+  ]
+}
