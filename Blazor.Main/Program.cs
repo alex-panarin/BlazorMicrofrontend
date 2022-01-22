@@ -22,12 +22,10 @@ namespace Blazor.Main
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddOptions();
             builder.Services.AddAuthInfrastructure();
-            
-            
             var host = builder.Build();
             DefaultServiceProvider = host.Services;
-            var loader = DefaultServiceProvider.GetServices<ILoadingService>();
-            Console.WriteLine($"Loader: =>> {loader} <==");
+            //var loader = DefaultServiceProvider.GetServices<ILoadingService>();
+            //Console.WriteLine($"Loader: =>> {loader} <==");
             await host.RunAsync();
 
         }

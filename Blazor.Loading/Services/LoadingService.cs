@@ -23,7 +23,7 @@ namespace Blazor.Loading.Services
         }
         public async Task Loading(string contextPath, IServiceProvider serviceProvider, ILogger logger = null)
         {
-            logger?.LogInformation($"Loading {contextPath}");
+            logger?.LogInformation($"Loading context: {contextPath}");
             LoadedAssemblies.Clear();
 
             var layout = _layouts.GetOrAdd(contextPath, await _layoutLoader.LoadLayoutAsync(contextPath, logger));
