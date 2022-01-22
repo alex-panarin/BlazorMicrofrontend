@@ -22,7 +22,7 @@ namespace Blazor.Loading.Services
             {
                 PropertyNameCaseInsensitive = true
             });
-            logger?.LogInformation($"==> Layouts: {array} <==");
+            logger?.LogInformation($"==> Layouts: {string.Join("; ", array.Layouts.Select(l => l.Key))} <==");
 
             return array
                 .Layouts

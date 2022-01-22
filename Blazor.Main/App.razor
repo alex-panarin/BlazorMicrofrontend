@@ -1,7 +1,9 @@
 ﻿@using Blazor.Loading.Services
 @using Microsoft.Extensions.Logging
+@using System.Security.Claims
 @inject ILogger<App> Logger
 @inject ILoadingService Service
+@inject AuthenticationStateProvider Provider
 <CascadingAuthenticationState>
 <Router AppAssembly="@typeof(Program).Assembly" 
     AdditionalAssemblies="@Service.LoadedAssemblies" 
@@ -27,7 +29,23 @@
     {
         try
         {
-            await Service.Loading(context.Path, Program.DefaultServiceProvider, Logger);
+            var state = await Provider.GetAuthenticationStateAsync();
+            var name = state.User?.Identity?.Name;
+            if (! string.IsNullOrWhiteSpace(name))
+            {
+                Logger.LogInformation($"==> State : {name} <==");
+                var key = state.User?.Claims
+                    .Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => c.Value)
+                    .FirstOrDefault();
+
+                if (string.IsNullOrWhiteSpace(key))
+                    return;
+
+                await Service.Loading(key, Program.DefaultServiceProvider, Logger);
+            }
+            else
+                Logger.LogInformation("==> State : Not Authenticated <==");
         }
         catch(Exception x)
         {
