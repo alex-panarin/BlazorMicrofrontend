@@ -1,0 +1,25 @@
+﻿@page "/admin"
+@using Blazor.Services.Models
+@using Blazor.Services.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize(Roles ="admin")]
+@inject IReadPhotoService PhotoService
+ <AuthorizeView>
+    <Authorized>
+        <h2>Admin page: @context.User?.Identity?.Name</h2>
+        <ListPhotoContent Photos=@Photos/>
+    </Authorized>
+   <NotAuthorized>
+        You don't have permission to display this page
+   </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private List<Photo> Photos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(Photos  == null)
+            Photos = new List<Photo>(await PhotoService.ReadPhotos());
+    }
+}

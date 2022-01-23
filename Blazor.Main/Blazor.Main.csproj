@@ -11,7 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Blazor.Admin.Services\Blazor.Services.csproj" />
+    <ProjectReference Include="..\Blazor.Admin.UI\Blazor.Admin.UI.csproj" />
     <ProjectReference Include="..\Blazor.Auth\Blazor.Auth.csproj" />
+    <ProjectReference Include="..\Blazor.Components.UI\Blazor.Components.UI.csproj" />
+    <ProjectReference Include="..\Blazor.Guest.UI\Blazor.Guest.UI.csproj" />
     <ProjectReference Include="..\Blazor.Loading\Blazor.Loading.csproj" />
     <ProjectReference Include="..\Blazor.Register\Blazor.Register.csproj" />
   </ItemGroup>
@@ -19,6 +23,9 @@
   <ItemGroup>
     <Content Update="wwwroot\appsettings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\layout.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 @page "/login"
 @using Blazor.Auth.Models
 @using Blazor.Auth.Services
+@using System.Security.Claims
 @inject IAuthService AuthService
 @inject NavigationManager NavigationManager
 
@@ -46,7 +47,6 @@
         ShowErrors = false;
 
         var result = await AuthService.Login(loginModel);
-
         if (result.IsSuccess)
         {
             NavigationManager.NavigateTo("/");

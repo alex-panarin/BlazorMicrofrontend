@@ -16,9 +16,9 @@ namespace Blazor.Token.Api.Controllers
         // TODO: Add Users repository
         static List<User> Users = new List<User>
         {
-            new User{ Email = "vasia@123.com"},
-            new User{ Email = "alex@123.com"},
-            new User{ Email = "nik@123.com"}
+            new User{ Email = "vasia@123.com", Role="guest"},
+            new User{ Email = "alex@123.com", Role="admin"},
+            new User{ Email = "nik@123.com", Role="guest"}
         };
         public Task CreateAsync(TokenRequest token)
         {
@@ -30,7 +30,7 @@ namespace Blazor.Token.Api.Controllers
                 CreatePasswordHash(token.password, out byte[] hash, out byte[] salt);
                 user.Hash = hash;
                 user.Salt = salt;
-                user.Token = CreateToken(user.Id.ToString(), user.Email);
+                user.Token = CreateToken(user.Id.ToString(), user.Email, user.Role);
             }
             return Task.CompletedTask;
         }
@@ -51,7 +51,7 @@ namespace Blazor.Token.Api.Controllers
             
             return Task.FromResult(default(TokenResponse));
          }
-        private string CreateToken(string tokenKey, string email, string role = "admin")
+        private string CreateToken(string tokenKey, string email, string role)
         {
             List<Claim> claims = new List<Claim>
             {

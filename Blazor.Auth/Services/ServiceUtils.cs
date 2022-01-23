@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Blazor.Auth.Services
 {
-    internal static class ServiceUtils
+    public static class ServiceUtils
     {
         public static IEnumerable<Claim> ParseClaimsFromJwt(string token)
         {

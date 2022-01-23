@@ -1,5 +1,6 @@
 ﻿@page "/"
-
+@using System.Security.Claims
+@inject NavigationManager Nav
 <AuthorizeView>
     <Authorized>
         <h1>Hello, @context.User?.Identity?.Name !</h1>
@@ -14,4 +15,18 @@
 
 @code{
     [CascadingParameter] Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await authenticationStateTask;
+        var key = state.User?.Claims
+                    .Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => c.Value)
+                    .FirstOrDefault();
+
+        if (string.IsNullOrWhiteSpace(key))
+            return;
+
+        Nav.NavigateTo($"/{key}");
+    }
 }

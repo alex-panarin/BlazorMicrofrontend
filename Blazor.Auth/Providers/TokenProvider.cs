@@ -29,7 +29,7 @@ namespace Blazor.Auth.Providers
 
             if(IsTokenValid(token))
                 return token;
-            var refreshToken = await _localStorage.GetItemAsync("refreshToken");
+            var refreshToken = await _localStorage.GetItemAsync("refresh");
             if(string.IsNullOrWhiteSpace(refreshToken))
                 return token;
             var newToken = await RefreshTokenAsync(refreshToken);

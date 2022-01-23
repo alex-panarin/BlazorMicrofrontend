@@ -1,0 +1,17 @@
+﻿@page "/guest"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize(Roles ="guest")]
+ <AuthorizeView>
+    <Authorized>
+        <h1>Guest page</h1>
+        <p>Wellcome: @context.User?.Identity?.Name</p>
+    </Authorized>
+   <NotAuthorized>
+        You don't have permission to display this page
+   </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}

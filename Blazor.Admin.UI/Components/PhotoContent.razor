@@ -1,0 +1,18 @@
+﻿@using Blazor.Services.Models
+<div class="individual-photo-container">
+    <h2>@Photo.Title</h2>
+    <img src="@Photo.Url" alt="Poster" class="card" style="width:@Photo.Width; heigh:@Photo.Heigh" />
+    <p>Photo Id: @Photo.id</p>
+    <div>
+        <a class="btn btn-info">Edit</a>
+        <button type="button" class="btn btn-danger" @onclick="@(()=> DeletePhoto.InvokeAsync(Photo))">Delete</button>
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public Photo Photo { get; set; }
+    [Parameter] public bool DisplayDeleteButton { get; set; } = false;
+    [Parameter] public EventCallback<Photo> DeletePhoto { get; set; }
+    
+}

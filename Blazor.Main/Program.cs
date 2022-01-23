@@ -1,6 +1,7 @@
 using Blazor.Auth.Bootstrap;
 using Blazor.Loading;
 using Blazor.Loading.Services;
+using Blazor.Main.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,10 +23,9 @@ namespace Blazor.Main
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddOptions();
             builder.Services.AddAuthInfrastructure();
+            builder.Services.AddScoped<INavigationService, NavigationService>();
             var host = builder.Build();
             DefaultServiceProvider = host.Services;
-            //var loader = DefaultServiceProvider.GetServices<ILoadingService>();
-            //Console.WriteLine($"Loader: =>> {loader} <==");
             await host.RunAsync();
 
         }

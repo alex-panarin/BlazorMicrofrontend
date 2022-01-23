@@ -2,11 +2,11 @@
   "Layouts":[
     {
       "Key": "admin",
-      "Assemblies": []
+      "Assemblies": [ "Blazor.Admin.UI", "Blazor.Components.UI", "Blazor.Services" ]
     },
     {
-      "Key": "gest",
-      "Assemblies": []
+      "Key": "guest",
+      "Assemblies": [ "Blazor.Guest.UI", "Blazor.Components.UI" ]
     }
   ]
 }

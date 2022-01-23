@@ -1,0 +1,31 @@
+﻿@using Blazor.Services.Models
+@using Blazor.Components.UI
+@using Blazor.Components.UI.Components
+@inject IJSRuntime js
+
+<!--<input type="checkbox" @bind="displayDelete" /> -->
+    <div class="movie-container">
+        <GenericList TEntity="Photo" List="Photos">
+            <ElementTemplate Context="photo">
+                <PhotoContent Photo="photo" DeletePhoto="@DeletePhoto" />
+            </ElementTemplate>
+        </GenericList>
+    </div>
+
+
+@code {
+//    private bool displayDelete = true;
+    [Parameter] public List<Photo> Photos { get; set; }
+
+    private async Task DeletePhoto(Photo photo)
+    {
+        var confirmed = await js.Confirm($"Are you want to delete {photo.Title} ?");
+
+        if (confirmed)
+        {
+            Photos.Remove(photo);
+        }
+    }
+
+}
+

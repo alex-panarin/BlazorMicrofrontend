@@ -34,8 +34,9 @@ namespace Blazor.Auth.Services
                 if (loginResponse.IsSuccess)
                 {
                     await _localStorage.SetItemAsync("token", loginResponse.Token);
-                    _authenticationStateProvider.MarkUserAsAuthenticated(request.Email);
-
+                    //await _localStorage.SetItemAsync("refresh", loginResponse.RefreshToken);
+                    var claims = ServiceUtils.ParseClaimsFromJwt(loginResponse.Token);
+                    _authenticationStateProvider.MarkUserAsAuthenticated(claims);
                 }
                 return loginResponse;
             }
@@ -49,6 +50,7 @@ namespace Blazor.Auth.Services
         public async Task Logout()
         {
             await _localStorage.RemoveItemAsync("token");
+            //await _localStorage.RemoveItemAsync("refresh");
             _authenticationStateProvider.MarkUserAsLoggedOut();
         }
 
