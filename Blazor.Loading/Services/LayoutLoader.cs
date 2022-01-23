@@ -18,6 +18,7 @@ namespace Blazor.Loading.Services
         }
         public async Task<AssemblyLayout> LoadLayoutAsync(string configKey, ILogger logger = null)
         {
+            // Load layout from json file by the config key (role of the user)
             var array = await _client.GetFromJsonAsync<LayoutArray>("layout.json", new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true

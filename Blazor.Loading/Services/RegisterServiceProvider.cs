@@ -26,17 +26,17 @@ namespace Blazor.Loading.Services
             Console.WriteLine($"Get Service: {serviceType}");
             if (serviceType == typeof(IServiceScopeFactory))
                 return this;
-
+            // Find out service withing design time registration storage
             var service = _serviceProvider.GetService(serviceType);
             if (service != null)
                 return service;
-
+            // If not, try to find registration type
             var implType = Services.GetOrAdd(serviceType, service?.GetType());
             if (implType == null)
                 return null;
 
             Console.WriteLine($"Find Registered Service: {serviceType}");
-
+            // Get runtime registered service instance
             return _objects.GetOrAdd(serviceType, GetServiceImpl(implType));
         }
         

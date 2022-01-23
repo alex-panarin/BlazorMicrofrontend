@@ -21,12 +21,13 @@ namespace Blazor.Loading.Services
             _layoutLoader = layoutLoader ?? throw new ArgumentNullException(nameof(layoutLoader));
             _assembliesLoader = assembliesLoader ?? throw new ArgumentNullException(nameof(assembliesLoader)); 
         }
-        public async Task Loading(string contextPath, IServiceProvider serviceProvider, ILogger logger = null)
+        public async Task Loading(string contextKey, IServiceProvider serviceProvider, ILogger logger = null)
         {
-            logger?.LogInformation($"Loading context: {contextPath}");
+            // Find out layout and associated assemblies and load assemblies in to application context
+            logger?.LogInformation($"Loading context: {contextKey}");
             LoadedAssemblies.Clear();
 
-            var layout = _layouts.GetOrAdd(contextPath, await _layoutLoader.LoadLayoutAsync(contextPath, logger));
+            var layout = _layouts.GetOrAdd(contextKey, await _layoutLoader.LoadLayoutAsync(contextKey, logger));
             if (layout == null)
                 return;
 

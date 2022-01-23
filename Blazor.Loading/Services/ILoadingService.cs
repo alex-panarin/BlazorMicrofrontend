@@ -11,6 +11,6 @@ namespace Blazor.Loading.Services
     public interface ILoadingService
     {
         List<Assembly> LoadedAssemblies { get; }
-        Task Loading(string contextPath, IServiceProvider serviceProvider, ILogger logger);
+        Task Loading(string contextKey, IServiceProvider serviceProvider, ILogger logger);
     }
 }

@@ -29,11 +29,13 @@
     {
         try
         {
+            // Get authenticated user and push the role like a key to find out layout to display
             var state = await Provider.GetAuthenticationStateAsync();
             var name = state.User?.Identity?.Name;
             if (! string.IsNullOrWhiteSpace(name))
             {
                 Logger.LogInformation($"==> State : {name} <==");
+
                 var key = state.User?.Claims
                     .Where(c => c.Type == ClaimTypes.Role)
                     .Select(c => c.Value)
@@ -41,7 +43,7 @@
 
                 if (string.IsNullOrWhiteSpace(key))
                     return;
-
+                // Load assemblies
                 await Service.Loading(key, Program.DefaultServiceProvider, Logger);
             }
             else

@@ -39,12 +39,13 @@ namespace Blazor.Loading.Services
                 }
                 if (streamdll != null)
                 {
+                    // Try to load assembly and project file
                     var assembly = AssemblyLoadContext.Default.LoadFromStream(streamdll, streamPdb);
                     var registers = assembly
                         .GetTypes()
                         .Where(t => t.GetCustomAttribute<RegistrationAttribute>() != null)
                         .ToArray();
-
+                    // Register services that contains RegistrationAttribute in to provider if exist
                     foreach (var register in registers)
                     {
                         var regType = register.GetCustomAttribute<RegistrationAttribute>().RegistrationType;
