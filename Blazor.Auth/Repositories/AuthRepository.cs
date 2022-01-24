@@ -25,7 +25,8 @@ namespace Blazor.Auth.Repositories
         }
         public async Task<LoginResponse> LoginAsync(LoginRequest request)
         {
-            var url = _configuration.GetSection("Auth:LoginUrl").Value;
+            var url = $"{_configuration.GetSection("Auth:BaseAddress").Value}" +
+                $"{_configuration.GetSection("Auth:LoginUrl").Value}";
             var response = await _httpClient.PostAsJsonAsync(url, request);
             
             if (!response.IsSuccessStatusCode)
@@ -37,7 +38,8 @@ namespace Blazor.Auth.Repositories
         }
         public async Task<RegisterResponse> RegisterAsync(RegisterRequest request)
         {
-            var url = _configuration.GetSection("Auth:RegisterUrl").Value;
+            var url = $"{_configuration.GetSection("Auth:BaseAddress").Value}" +
+                $"{_configuration.GetSection("Auth:RegisterUrl").Value}";
             var value = new CreateRequest { Email = request.Email, Password = request.Password };
             var response = await _httpClient.PostAsJsonAsync(url, value, ServiceUtils.JsonOptions);
             if (!response.IsSuccessStatusCode)

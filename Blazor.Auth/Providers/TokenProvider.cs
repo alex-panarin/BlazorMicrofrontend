@@ -40,7 +40,8 @@ namespace Blazor.Auth.Providers
 
         private async ValueTask<string> RefreshTokenAsync(string token)
         {
-            var url = _configuration.GetSection("Auth:BaseAddress").Value + "/token/refresh";
+            var url = $"{_configuration.GetSection("Auth:BaseAddress").Value}" +
+                $"{_configuration.GetSection("Auth:RefreshUrl").Value}";
             var response = await  _httpClient.PostAsync(url, new StringContent(token));
             if(!response.IsSuccessStatusCode)
                 return string.Empty;
