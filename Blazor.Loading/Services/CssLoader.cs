@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
 
@@ -7,11 +8,14 @@ namespace Blazor.Loading.Services
     public class CssLoader : ICssLoader, IAsyncDisposable
     {
         private readonly Lazy<Task<IJSObjectReference>> moduleTask;
-        public CssLoader(IJSRuntime jS)
+        public CssLoader(IJSRuntime jS,
+            IConfiguration configuration)
         {
             var js = jS ?? throw new ArgumentNullException(nameof(jS));
+            var _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            var jsUrl = $"{_configuration.GetSection("BaseAddress").Value}/cssLoad.js";
             moduleTask = new(() => js.InvokeAsync<IJSObjectReference>(
-                "import", "https://localhost:44385/cssLoad.js").AsTask());
+                "import", jsUrl).AsTask());
         }
 
         public async ValueTask LoadCssAsync(string[] cssNames)

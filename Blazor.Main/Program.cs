@@ -3,8 +3,10 @@ using Blazor.Loading;
 using Blazor.Loading.Services;
 using Blazor.Main.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,6 +23,13 @@ namespace Blazor.Main
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddAssebliesLoader();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Configuration.Add(new MemoryConfigurationSource 
+            { 
+                InitialData = new Dictionary<string, string> 
+                { 
+                    { "BaseAddress", builder.HostEnvironment.BaseAddress } 
+                } 
+            });
             builder.Services.AddOptions();
             builder.Services.AddAuthInfrastructure();
             builder.Services.AddScoped<INavigationService, NavigationService>();

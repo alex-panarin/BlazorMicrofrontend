@@ -33,10 +33,11 @@ namespace Blazor.Loading.Services
             var layout = _layouts.GetOrAdd(contextKey, await _layoutLoader.LoadLayoutAsync(contextKey, logger));
             if (layout == null)
                 return;
-
+            
             var assemblies = await _assembliesLoader.LoadAssembliesAsync(layout.Assemblies, serviceProvider, logger);
             LoadedAssemblies.AddRange(assemblies);
 
+            logger?.LogInformation($"Loading css: {string.Join("; ", layout.Css)}");
             await _cssLoader.LoadCssAsync(layout.Css);
         }
     }
