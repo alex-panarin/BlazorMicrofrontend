@@ -9,6 +9,8 @@ namespace Blazor.Loading.Models
     public class AssemblyLayout
     {
         public string[] Assemblies { get; set; }
+        public string[] Css { get; set; }
+        public string[] Js { get; set; }
         public string Key { get; set; }
     }
 }

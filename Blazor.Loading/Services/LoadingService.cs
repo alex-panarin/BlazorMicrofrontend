@@ -12,14 +12,17 @@ namespace Blazor.Loading.Services
     {
         private readonly ILayoutLoader _layoutLoader;
         private readonly IAssembliesLoader _assembliesLoader;
+        private readonly ICssLoader _cssLoader;
         private static readonly ConcurrentDictionary<string, AssemblyLayout> _layouts = new ConcurrentDictionary<string, AssemblyLayout>();
         public List<Assembly> LoadedAssemblies { get; } = new List<Assembly> { };
 
         public LoadingService(ILayoutLoader layoutLoader, 
-            IAssembliesLoader assembliesLoader)
+            IAssembliesLoader assembliesLoader,
+            ICssLoader cssLoader)
         {
             _layoutLoader = layoutLoader ?? throw new ArgumentNullException(nameof(layoutLoader));
             _assembliesLoader = assembliesLoader ?? throw new ArgumentNullException(nameof(assembliesLoader)); 
+            _cssLoader = cssLoader ?? throw new ArgumentNullException(nameof(cssLoader));
         }
         public async Task Loading(string contextKey, IServiceProvider serviceProvider, ILogger logger = null)
         {
@@ -33,6 +36,8 @@ namespace Blazor.Loading.Services
 
             var assemblies = await _assembliesLoader.LoadAssembliesAsync(layout.Assemblies, serviceProvider, logger);
             LoadedAssemblies.AddRange(assemblies);
+
+            await _cssLoader.LoadCssAsync(layout.Css);
         }
     }
 }

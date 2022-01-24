@@ -15,12 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <ProjectReference Include="..\Blazor.Admin.Services\Blazor.Services.csproj" />
+    <ProjectReference Include="..\Blazor.Components.UI\Blazor.Components.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Blazor.Admin.Services\Blazor.Services.csproj" />
-    <ProjectReference Include="..\Blazor.Components.UI\Blazor.Components.UI.csproj" />
+    <Content Update="wwwroot\admin.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

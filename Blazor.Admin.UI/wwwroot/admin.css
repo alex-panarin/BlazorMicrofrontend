@@ -1,0 +1,25 @@
+﻿.photo-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.individual-photo-container {
+    display: block;
+    margin-right: 2%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+    .individual-photo-container p {
+        max-width: 400px;
+        height: 44px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .individual-photo-container h2 {
+        max-width: 400px;
+        text-align: justify;
+        color: forestgreen
+    }

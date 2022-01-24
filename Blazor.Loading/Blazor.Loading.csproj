@@ -6,10 +6,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.JSInterop" Version="5.0.12" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Blazor.Register\Blazor.Register.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="wwwroot\cssLoad.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

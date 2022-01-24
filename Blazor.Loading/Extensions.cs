@@ -11,6 +11,7 @@ namespace Blazor.Loading
             services.AddSingleton<ILayoutLoader, LayoutLoader>();
             services.AddSingleton<IAssembliesLoader, AssembliesLoader>();
             services.AddSingleton<ILoadingService, LoadingService>();
+            services.AddSingleton<ICssLoader, CssLoader>();
         }
         public static void RegisterService(this IServiceProvider provider, Type serviceType, Type implementationType)
         {

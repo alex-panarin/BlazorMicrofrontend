@@ -4,7 +4,7 @@
 @inject IJSRuntime js
 
 <!--<input type="checkbox" @bind="displayDelete" /> -->
-    <div class="movie-container">
+    <div class="photo-container">
         <GenericList TEntity="Photo" List="Photos">
             <ElementTemplate Context="photo">
                 <PhotoContent Photo="photo" DeletePhoto="@DeletePhoto" />

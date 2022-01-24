@@ -1,7 +1,7 @@
 ﻿@using Blazor.Services.Models
 <div class="individual-photo-container">
     <h2>@Photo.Title</h2>
-    <img src="@Photo.Url" alt="Poster" class="card" style="width:@Photo.Width; heigh:@Photo.Heigh" />
+    <img src="@Photo.Url" alt="Poster" class="card" style="width:@photoWidth; height:@photoHeigh" />
     <p>Photo Id: @Photo.id</p>
     <div>
         <a class="btn btn-info">Edit</a>
@@ -14,5 +14,13 @@
     [Parameter] public Photo Photo { get; set; }
     [Parameter] public bool DisplayDeleteButton { get; set; } = false;
     [Parameter] public EventCallback<Photo> DeletePhoto { get; set; }
-    
+
+    private string photoHeigh;
+    private string photoWidth;
+
+    protected override void OnInitialized()
+    {
+        photoHeigh = $"{Photo.Heigh}px";
+        photoWidth = $"{Photo.Width}px";
+    }
 }
