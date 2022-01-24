@@ -32,28 +32,12 @@
     {
         try
         {
-            // Get authenticated user and push the role like a key to find out layout to display
-            
-            //var state = await Provider.GetAuthenticationStateAsync();
-            //var name = state.User?.Identity?.Name;
             if (! string.IsNullOrWhiteSpace(context.Path))
             {
-                //Logger.LogInformation($"==> State : {name} <==");
-
-                //var key = state.User?.Claims
-                //    .Where(c => c.Type == ClaimTypes.Role)
-                //    .Select(c => c.Value)
-                //    .FirstOrDefault();
-
-                //if (string.IsNullOrWhiteSpace(key) || context.Path != $"{key}")
-                //    return;
-
-                // Load assemblies
+                // Load assemblies + css + js
                 if(NavService.IsNavigateTo(context.Path))
                     await LoadService.Loading(context.Path, Program.DefaultServiceProvider, Logger);
             }
-            //else
-            //    Logger.LogInformation("==> State : Not Authenticated <==");
         }
         catch(Exception x)
         {

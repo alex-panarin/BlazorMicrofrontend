@@ -13,7 +13,7 @@ namespace Blazor.Loading.Services
         {
             var js = jS ?? throw new ArgumentNullException(nameof(jS));
             var _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            var jsUrl = $"{_configuration.GetSection("BaseAddress").Value}/cssLoad.js";
+            var jsUrl = $"{_configuration.GetSection("BaseAddress").Value}cssLoad.js";
             moduleTask = new(() => js.InvokeAsync<IJSObjectReference>(
                 "import", jsUrl).AsTask());
         }
