@@ -24,7 +24,7 @@ namespace Blazor.Loading.Services
             _assembliesLoader = assembliesLoader ?? throw new ArgumentNullException(nameof(assembliesLoader)); 
             _cssLoader = cssLoader ?? throw new ArgumentNullException(nameof(cssLoader));
         }
-        public async Task Loading(string contextKey, IServiceProvider serviceProvider, ILogger logger = null)
+        public async Task Loading(string contextKey, ILogger logger = null)
         {
             // Find out layout and associated assemblies and load assemblies in to application context
             logger?.LogInformation($"Loading context: {contextKey}");
@@ -34,7 +34,7 @@ namespace Blazor.Loading.Services
             if (layout == null)
                 return;
             
-            var assemblies = await _assembliesLoader.LoadAssembliesAsync(layout.Assemblies, serviceProvider, logger);
+            var assemblies = await _assembliesLoader.LoadAssembliesAsync(layout.Assemblies, logger);
             LoadedAssemblies.AddRange(assemblies);
 
             logger?.LogInformation($"Loading css: {string.Join("; ", layout.Css)}");

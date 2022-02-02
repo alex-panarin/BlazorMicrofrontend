@@ -34,7 +34,6 @@ namespace Blazor.Main
             builder.Services.AddAuthInfrastructure();
             builder.Services.AddScoped<INavigationService, NavigationService>();
             var host = builder.Build();
-            DefaultServiceProvider = host.Services;
             await host.RunAsync();
 
         }

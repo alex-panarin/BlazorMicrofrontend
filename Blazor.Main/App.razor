@@ -36,7 +36,7 @@
             {
                 // Load assemblies + css + js
                 if(NavService.IsNavigateTo(context.Path))
-                    await LoadService.Loading(context.Path, Program.DefaultServiceProvider, Logger);
+                    await LoadService.Loading(context.Path, Logger);
             }
         }
         catch(Exception x)

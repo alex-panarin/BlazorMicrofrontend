@@ -14,13 +14,16 @@ namespace Blazor.Loading.Services
     public class AssembliesLoader : IAssembliesLoader
     {
         private readonly HttpClient _client;
+        private readonly IServiceProvider _provider;
 
-        public AssembliesLoader(HttpClient client)
+        public AssembliesLoader(HttpClient client,
+            IServiceProvider provider)
         {
-            _client = client;
+            _client = client ?? throw new ArgumentNullException(nameof(client));
+            _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         }
 
-        public async Task<IEnumerable<Assembly>> LoadAssembliesAsync(string[] assemblyNames, IServiceProvider provider, ILogger logger = null)
+        public async Task<IEnumerable<Assembly>> LoadAssembliesAsync(string[] assemblyNames, ILogger logger = null)
         {
             var assemblyList = new List<Assembly>();
             foreach (var assemblyName in assemblyNames)
@@ -37,26 +40,27 @@ namespace Blazor.Loading.Services
                 {
                     logger?.LogError(x, nameof(LoadAssembliesAsync));
                 }
-                if (streamdll != null)
+                if (streamdll == null)
+                    continue;
+                
+                // Try to load assembly and project file
+                var assembly = AssemblyLoadContext.Default.LoadFromStream(streamdll, streamPdb);
+                var registers = assembly
+                    .GetTypes()
+                    .Where(t => t.GetCustomAttribute<RegistrationAttribute>() != null)
+                    .ToArray();
+                // Register services that contains RegistrationAttribute in to provider if exist
+                foreach (var register in registers)
                 {
-                    // Try to load assembly and project file
-                    var assembly = AssemblyLoadContext.Default.LoadFromStream(streamdll, streamPdb);
-                    var registers = assembly
-                        .GetTypes()
-                        .Where(t => t.GetCustomAttribute<RegistrationAttribute>() != null)
-                        .ToArray();
-                    // Register services that contains RegistrationAttribute in to provider if exist
-                    foreach (var register in registers)
-                    {
-                        var regType = register.GetCustomAttribute<RegistrationAttribute>().RegistrationType;
-                        provider.RegisterService(regType, register);
-                    }
-
-                    assemblyList.Add(assembly);
-                    await streamdll.DisposeAsync();
-                    if (streamPdb != null)
-                        await streamPdb.DisposeAsync();
+                    var regType = register.GetCustomAttribute<RegistrationAttribute>().RegistrationType;
+                    _provider.RegisterService(regType, register);
                 }
+
+                assemblyList.Add(assembly);
+                await streamdll.DisposeAsync();
+                if (streamPdb != null)
+                    await streamPdb.DisposeAsync();
+                
             }
             return assemblyList;
         }
